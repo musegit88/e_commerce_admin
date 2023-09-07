@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useStoreModal } from "@/hooks/useStoreModal";
-import Modal from "../Modal";
+import Modal from "../Reusable_ui/Modal";
 import {
   Form,
   FormControl,

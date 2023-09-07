@@ -5,7 +5,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Heading from "./Heading";
+import Heading from "./Reusable_ui/Heading";
 import {
   Form,
   FormControl,
@@ -20,12 +20,11 @@ import { Trash2 } from "lucide-react";
 import { Separator } from "./ui/separator";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import AlertModal from "./modals/AlertModal";
-import ApiAlert from "./ApiAlert";
 import { useOrigin } from "@/hooks/useOrigin";
 import { LucideIcon, ImagePlus } from "lucide-react";
-import ImageUploader from "./ImageUploader";
+import ImageUploader from "./Reusable_ui/ImageUploader";
 
 const formSchema = z.object({
   lable: z
@@ -94,12 +93,13 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
         `/api/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard deleted");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
+      setOpen(false);
     }
   };
 
@@ -173,7 +173,6 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };

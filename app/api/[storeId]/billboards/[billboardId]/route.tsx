@@ -77,7 +77,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 400 });
     }
 
-    const billboard = await prismaDB.billboard.delete({
+    const billboard = await prismaDB.billboard.deleteMany({
       where: {
         id: params.billboardId,
         storeId: params.storeId,
@@ -91,7 +91,7 @@ export async function DELETE(
 }
 export async function GET(
   req: Request,
-  { params }: { params: {billboardId: string } }
+  { params }: { params: { billboardId: string } }
 ) {
   try {
     if (!params.billboardId) {

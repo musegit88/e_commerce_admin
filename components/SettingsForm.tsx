@@ -5,7 +5,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Heading from "./Heading";
+import Heading from "./Reusable_ui/Heading";
 import {
   Form,
   FormControl,
@@ -22,23 +22,22 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { redirect, useParams, useRouter } from "next/navigation";
 import AlertModal from "./modals/AlertModal";
-import ApiAlert from "./ApiAlert";
+import ApiAlert from "./Reusable_ui/ApiAlert";
 import { useOrigin } from "@/hooks/useOrigin";
 import { LucideIcon, Settings } from "lucide-react";
 
-
 const formSchema = z.object({
   name: z
-  .string()
+    .string()
     .min(1, { message: "Name must contain at least one character" }),
-  });
-  
-  type SettingsFormValues = z.infer<typeof formSchema>;
-  
-  interface SettingsFormProps {
-    initialData: Store;
-  }
-  
+});
+
+type SettingsFormValues = z.infer<typeof formSchema>;
+
+interface SettingsFormProps {
+  initialData: Store;
+}
+
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const params = useParams();
   // console.log(params);//Testing

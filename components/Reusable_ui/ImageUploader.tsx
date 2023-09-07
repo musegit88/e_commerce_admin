@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { ImagePlusIcon, Trash } from "lucide-react";
 import Image from "next/image";
 
