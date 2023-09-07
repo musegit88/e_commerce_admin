@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import React from "react";
 import { format } from "date-fns";
-import { BillboardColumn } from "@/components/BillboardTable/columns";
+import { BillboardColumn } from "@/components/Table/columns";
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
   const billboards = await prismaDB.billboard.findMany({

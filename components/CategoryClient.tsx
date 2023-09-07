@@ -2,19 +2,19 @@
 
 import React from "react";
 import Heading from "./Reusable_ui/Heading";
-import { Image, CloudCog, Plus } from "lucide-react";
+import { Image, CloudCog, Plus, Group } from "lucide-react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { useRouter, useParams } from "next/navigation";
 
-import { BillboardColumn, columns } from "./Table/columns";
 import { DataTable } from "./Reusable_ui/DataTable";
 import ApiList from "./Reusable_ui/ApiList";
-interface BillboardClientProps {
-  data: BillboardColumn[];
+import { CategoryColumn, categoriesColumns } from "./Table/categoriesColumns";
+interface CategoryClientProps {
+  data: CategoryColumn[];
 }
 
-const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
+const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -22,28 +22,28 @@ const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Billboards (${data.length})`}
-          description="Manage billboards"
-          icon={Image}
+          title={`Categories (${data.length})`}
+          description="Manage categories"
+          icon={Group}
         />
         <Button
-          onClick={() => router.push(`/${params.storeId}/billboards/new`)}
+          onClick={() => router.push(`/${params.storeId}/categories/new`)}
         >
           <Plus className="w-4 h-4 mr-2" />
           Add New
         </Button>
       </div>
       <Separator />
-      <DataTable columns={columns} data={data} searchKey="lable" />
+      <DataTable columns={categoriesColumns} data={data} searchKey="name" />
       <Heading
         title="API"
-        description="API routes for Billboards"
+        description="API routes for Categories"
         icon={CloudCog}
       />
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <ApiList entityName="categories" entityIdName="categoryId" />
     </>
   );
 };
 
-export default BillboardClient;
+export default CategoryClient;

@@ -14,6 +14,7 @@ export type BillboardColumn = {
   createdAt: string;
 };
 
+
 export const columns: ColumnDef<BillboardColumn>[] = [
   {
     id: "select",
@@ -46,7 +47,7 @@ export const columns: ColumnDef<BillboardColumn>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          CreatedAt
+          Date
           <ArrowUpDown className="ml-2 w-4 h-4" />
         </Button>
       );
