@@ -19,7 +19,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Store name is required" }),
@@ -27,6 +26,7 @@ const formSchema = z.object({
 
 const StoreModal = () => {
   const storesModal = useStoreModal();
+  // console.log(storesModal)
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
