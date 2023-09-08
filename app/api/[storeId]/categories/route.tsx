@@ -19,6 +19,9 @@ export async function POST(
     if (!billboardId) {
       return new NextResponse("Billboard id is required", { status: 401 });
     }
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 401 });
+    }
     const storeByUserId = await prismaDB.store.findFirst({
       where: {
         id: params.storeId,

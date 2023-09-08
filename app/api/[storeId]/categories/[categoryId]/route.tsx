@@ -55,6 +55,9 @@ export async function DELETE(
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
+    if (!params.categoryId) {
+      return new NextResponse("Category id is required", { status: 400 });
+    }
     const storeByUserId = await prismaDB.store.findFirst({
       where: {
         id: params.storeId,

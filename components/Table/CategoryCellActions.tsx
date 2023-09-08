@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { BillboardColumn } from "./columns";
+import { useParams, useRouter } from "next/navigation";
+import { CategoryColumn } from "./categoriesColumns";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,49 +10,41 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, CopyIcon, DeleteIcon, EditIcon } from "lucide-react";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { ChevronDown, EditIcon, CopyIcon, DeleteIcon } from "lucide-react";
 import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
-import AlertModal from "@/components/modals/AlertModal";
+import AlertModal from "../modals/AlertModal";
 
-interface CellActioinProps {
-  data: BillboardColumn;
+interface CategoryCellActionProps {
+  data: CategoryColumn;
 }
-const CellAction: React.FC<CellActioinProps> = ({ data }) => {
+
+const CategoryCellAction: React.FC<CategoryCellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const onCopy = () => {
-    navigator.clipboard.writeText(data.id);
+  const onUpdate = (id: string) => {
+    router.push(`/${params.storeId}/categories/${id}`);
+  };
+  const onCopy = (id: string) => {
+    navigator.clipboard.writeText(id);
     toast.success("Copied");
   };
-  //or
-  // const onCopy = (id:string) => {
-  //   navigator.clipboard.writeText(id);
-  //   toast.success("Copied");
-  // };
-  const onUpdate = (id: string) => {
-    router.push(`/${params.storeId}/billboards/${id}`);
-  };
-  // const onDelete = (id: string) => {
-  //   router.push(`/${params.storeId}/billboards/${id}`);
-  // };
   const onDelete = async (id: string) => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${id}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard deleted");
+      toast.success("Category deleted");
     } catch (error) {
+      console.log(error);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
-      setOpen(false)
+      setOpen(false);
     }
   };
   return (
@@ -63,7 +56,7 @@ const CellAction: React.FC<CellActioinProps> = ({ data }) => {
         loading={loading}
       />
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button variant="ghost" size="sm">
             <span className="sr-only">Open menu</span>
             <ChevronDown className="w-4 h-4" />
@@ -72,19 +65,17 @@ const CellAction: React.FC<CellActioinProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={onCopy}
-            // or onClick={()=>navigator.clipboard.writeText(data.id)}
-          >
-            <CopyIcon className="w-4 h-4 mr-2" />
+
+          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+            <CopyIcon className="mr-2 w-4 h-4" />
             Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => onUpdate(data.id)}>
-            <EditIcon className="w-4 h-4 mr-2" />
+            <EditIcon className="mr-2 w-4 h-4" />
             Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <DeleteIcon className="w-4 h-4 mr-2" />
+            <DeleteIcon className="mr-2 w-4 h-4" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -92,5 +83,4 @@ const CellAction: React.FC<CellActioinProps> = ({ data }) => {
     </>
   );
 };
-
-export default CellAction;
+export default CategoryCellAction;
