@@ -1,7 +1,5 @@
 import BillboardClient from "@/components/BillboardClient";
 import prismaDB from "@/lib/prismDB";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import React from "react";
 import { format } from "date-fns";
 import { BillboardColumn } from "@/components/Table/columns";

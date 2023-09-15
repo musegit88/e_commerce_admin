@@ -38,6 +38,16 @@ const Navsection = ({
       active: pathname === `/${params.storeId}/colors`,
     },
     {
+      href: `/${params.storeId}/products`,
+      lable: "Products",
+      active: pathname === `/${params.storeId}/products`,
+    },
+    {
+      href: `/${params.storeId}/orders`,
+      lable: "Orders",
+      active: pathname === `/${params.storeId}/orders`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       lable: "Settings",
       active: pathname === `/${params.storeId}/settings`,
