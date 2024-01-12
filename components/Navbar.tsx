@@ -2,6 +2,7 @@ import { UserButton, auth } from "@clerk/nextjs";
 import React from "react";
 import Navsection from "./Navsection";
 import Switcher from "@/components/Switcher";
+import {ModeToggle} from "@/components/Theme";
 import { redirect } from "next/navigation";
 import prismaDB from "@/lib/prismDB";
 const Navbar = async () => {
@@ -23,6 +24,7 @@ const Navbar = async () => {
         <Switcher items={stores} />
         <Navsection className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
+          <ModeToggle/>
           <UserButton afterSignOutUrl="/" />
         </div>
       </div>
